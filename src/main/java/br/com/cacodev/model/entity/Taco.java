@@ -23,7 +23,7 @@ import lombok.Data;
  */
 @Data
 @Entity
-public class Tacos {
+public class Taco {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
