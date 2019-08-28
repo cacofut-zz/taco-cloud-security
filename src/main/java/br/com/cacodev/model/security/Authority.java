@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.cacodev.model.entity;
+package br.com.cacodev.model.security;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

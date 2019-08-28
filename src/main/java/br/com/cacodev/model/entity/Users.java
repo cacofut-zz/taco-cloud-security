@@ -1,6 +1,7 @@
 
 package br.com.cacodev.model.entity;
 
+import br.com.cacodev.model.security.Authority;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;

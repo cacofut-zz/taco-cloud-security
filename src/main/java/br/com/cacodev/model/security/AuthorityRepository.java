@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.cacodev.model.repository;
+package br.com.cacodev.model.security;
 
-import br.com.cacodev.model.entity.Authority;
+import br.com.cacodev.model.security.Authority;
 import org.springframework.data.repository.CrudRepository;
 
 /**

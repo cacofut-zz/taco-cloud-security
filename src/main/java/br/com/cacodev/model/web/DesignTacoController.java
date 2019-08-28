@@ -5,12 +5,20 @@
  */
 package br.com.cacodev.model.web;
 
+import br.com.cacodev.model.entity.Ingredient.Type;
+import br.com.cacodev.model.entity.Ingredient;
 import br.com.cacodev.model.entity.Order;
 import br.com.cacodev.model.entity.Taco;
+import br.com.cacodev.model.entity.User;
+import br.com.cacodev.model.entity.Users;
 import br.com.cacodev.model.repository.IngredientRepository;
 import br.com.cacodev.model.repository.TacoRepository;
 import br.com.cacodev.model.repository.UserRepository;
+import br.com.cacodev.model.repository.UsersRepository;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,16 +42,16 @@ public class DesignTacoController {
     
     private TacoRepository tacoRepo;
     
-    private UserRepository userRepo;
+    private UsersRepository usersRepo;
 
     @Autowired
     public DesignTacoController(
         IngredientRepository ingredientRepo,
         TacoRepository tacoRepo, 
-        UserRepository userRepo) {
+        UsersRepository usersRepo) {
         this.ingredientRepo = ingredientRepo;
         this.tacoRepo = tacoRepo;
-        this.userRepo = userRepo;
+        this.usersRepo = usersRepo;
     }
     
     @ModelAttribute(name = "order")
@@ -59,8 +67,26 @@ public class DesignTacoController {
     @GetMapping
     public String showDesignForm(Model model, Principal principal){
         log.info("    --- Designing taco");
+        List<Ingredient> ingredients = new ArrayList<>();
+        ingredientRepo.findAll().forEach( i -> ingredients.add(i));
+        
+        Type[] types = Ingredient.Type.values();
+        for(Type type : types){
+            model.addAttribute(type.toString().toLowerCase(), 
+                filterByType(ingredients, type));
+        }
+        String username = principal.getName();
+        Users users = usersRepo.findByUsername(username);
+        model.addAttribute("user", users);
         
         return "design";
     }
     
+    private List<Ingredient> filterByType(
+        List<Ingredient> ingredients, Type type){
+        return ingredients
+            .stream()
+            .filter( i -> i.getType().equals(type))
+            .collect(Collectors.toList());        
+    }
 }

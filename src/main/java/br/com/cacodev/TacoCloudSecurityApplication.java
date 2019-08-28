@@ -1,10 +1,12 @@
 package br.com.cacodev;
 
-import br.com.cacodev.model.entity.Authority;
+import br.com.cacodev.model.entity.Ingredient;
+import br.com.cacodev.model.entity.Ingredient.Type;
+import br.com.cacodev.model.security.Authority;
 import br.com.cacodev.model.entity.Users;
-import br.com.cacodev.model.repository.AuthorityRepository;
+import br.com.cacodev.model.repository.IngredientRepository;
+import br.com.cacodev.model.security.AuthorityRepository;
 import br.com.cacodev.model.repository.UsersRepository;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.boot.CommandLineRunner;
@@ -25,7 +27,8 @@ public class TacoCloudSecurityApplication {
     
     
     @Bean
-    public CommandLineRunner dataLoader(AuthorityRepository repo, UsersRepository userRepo){
+    public CommandLineRunner dataLoader(AuthorityRepository repo, 
+            UsersRepository userRepo, IngredientRepository ingRepo){
         
         return new CommandLineRunner() {
             @Override
@@ -50,6 +53,21 @@ public class TacoCloudSecurityApplication {
                  
                 userRepo.save( u1 );
                 userRepo.save( u2 );
+                
+                Ingredient i1 = new Ingredient("FLTO", "Flour Tortilla", Type.WRAP);
+                Ingredient i2 = new Ingredient("COTO", "Corn Tortilla", Type.WRAP);
+                Ingredient i3 = new Ingredient("GRBF", "Ground Beef", Type.PROTEIN);
+                Ingredient i4 = new Ingredient("CARN", "Carnitas", Type.PROTEIN);
+                Ingredient i5 = new Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES);
+                Ingredient i6 = new Ingredient("LETC", "Lettuce", Type.VEGGIES);
+                Ingredient i7 = new Ingredient("CHED", "Cheddar", Type.CHEESE);
+                Ingredient i8 = new Ingredient("JACK", "Monterrey Jack", Type.CHEESE);
+                Ingredient i9 = new Ingredient("SLSA", "Salsa", Type.SAUCE);
+                Ingredient i10 = new Ingredient("SRCR", "Sour Cream", Type.SAUCE);
+                
+                ingRepo.saveAll( 
+                    Arrays.asList( i1, i2, i3, i4, i5, i6, i7, i8, i9, i10 ));
+                
             }
         };
     }
