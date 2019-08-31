@@ -41,7 +41,7 @@ public class Order implements Serializable{
     private Date placeAt;
     
     @ManyToOne
-    private User user;
+    private Users user;
     
     @NotBlank(message = "Delivery name is required")
     private String deliveryName;
@@ -58,7 +58,7 @@ public class Order implements Serializable{
     @NotBlank(message = "Zip code is required")
     private String deliveryZip;
     
-    @CreditCardNumber(message = "Not a valid credit card number")
+    //@CreditCardNumber(message = "Not a valid credit card number")
     private String ccNumber;
     
     @Pattern(regexp="^(0[1-9]|1[0-2])([\\/])([1-9][0-9])$",
